@@ -1,0 +1,610 @@
+<!doctype html>
+<html lang="en" class="h-full">
+ <head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Our Forever Love Story</title>
+  <script src="https://cdn.tailwindcss.com/3.4.17"></script>
+  <script src="/_sdk/element_sdk.js"></script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;1,400&amp;family=Quicksand:wght@300;400;500&amp;family=Pacifico&amp;display=swap" rel="stylesheet">
+  <style>
+    html, body {
+      height: 100%;
+      margin: 0;
+      scroll-behavior: smooth;
+    }
+
+    :root {
+      --bg-primary: #fce4ec;
+      --bg-secondary: #f8bbd9;
+      --text-dark: #880e4f;
+      --accent-primary: #e91e63;
+      --accent-secondary: #c2185b;
+    }
+
+    @keyframes float {
+      0%, 100% { transform: translateY(0) rotate(0deg); opacity: 0.6; }
+      50% { transform: translateY(-20px) rotate(10deg); opacity: 1; }
+    }
+
+    @keyframes pulse-glow {
+      0%, 100% { filter: drop-shadow(0 0 8px var(--accent-primary)); transform: scale(1); }
+      50% { filter: drop-shadow(0 0 20px var(--accent-primary)); transform: scale(1.1); }
+    }
+
+    @keyframes sparkle {
+      0%, 100% { opacity: 0; }
+      50% { opacity: 1; }
+    }
+
+    @keyframes fadeInUp {
+      from { opacity: 0; transform: translateY(30px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    @keyframes slide-in-left {
+      from { opacity: 0; transform: translateX(-50px); }
+      to { opacity: 1; transform: translateX(0); }
+    }
+
+    @keyframes slide-in-right {
+      from { opacity: 0; transform: translateX(50px); }
+      to { opacity: 1; transform: translateX(0); }
+    }
+
+    @keyframes constellation {
+      0%, 100% { opacity: 0.5; }
+      50% { opacity: 1; }
+    }
+
+    .heart-float { animation: float 4s ease-in-out infinite; }
+    .heart-glow { animation: pulse-glow 2s ease-in-out infinite; }
+    .sparkle { animation: sparkle 1.5s ease-in-out infinite; }
+    .fade-in-up { animation: fadeInUp 1s ease-out forwards; }
+    .slide-in-left { animation: slide-in-left 0.8s ease-out forwards; }
+    .slide-in-right { animation: slide-in-right 0.8s ease-out forwards; }
+
+    .delay-100 { animation-delay: 0.1s; opacity: 0; }
+    .delay-200 { animation-delay: 0.2s; opacity: 0; }
+    .delay-300 { animation-delay: 0.3s; opacity: 0; }
+    .delay-400 { animation-delay: 0.4s; opacity: 0; }
+    .delay-500 { animation-delay: 0.5s; opacity: 0; }
+    .delay-600 { animation-delay: 0.6s; opacity: 0; }
+    .delay-800 { animation-delay: 0.8s; opacity: 0; }
+    .delay-1000 { animation-delay: 1s; opacity: 0; }
+
+    .glass-card {
+      background: rgba(255, 255, 255, 0.15);
+      backdrop-filter: blur(10px);
+      border: 1px solid rgba(255, 255, 255, 0.3);
+    }
+
+    .text-shadow-romantic {
+      text-shadow: 0 2px 20px rgba(0, 0, 0, 0.1);
+    }
+
+    .nav-button {
+      transition: all 0.3s ease;
+      cursor: pointer;
+    }
+
+    .nav-button:hover {
+      transform: translateY(-2px);
+      filter: drop-shadow(0 8px 12px rgba(0, 0, 0, 0.2));
+    }
+
+    .pagination-dot {
+      transition: all 0.3s ease;
+      cursor: pointer;
+    }
+
+    .pagination-dot.active {
+      background-color: var(--accent-primary);
+      transform: scale(1.3);
+    }
+
+    .page {
+      opacity: 0;
+      transform: translateX(100%);
+      transition: all 0.6s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+      position: absolute;
+      inset: 0;
+    }
+
+    .page.active {
+      opacity: 1;
+      transform: translateX(0);
+      position: relative;
+    }
+
+    .page-container {
+      min-height: 100%;
+      display: flex;
+      flex-direction: column;
+      overflow-y: auto;
+    }
+
+    /* Page-specific backgrounds */
+    .page-1-bg { background: linear-gradient(135deg, #fce4ec 0%, #f8bbd9 50%, #fce4ec 100%); }
+    .page-2-bg { background: linear-gradient(135deg, #f3e5f5 0%, #fce4ec 50%, #f3e5f5 100%); }
+    .page-3-bg { background: linear-gradient(135deg, #ffe0e0 0%, #fff5f5 50%, #ffd9e8 100%); }
+    .page-4-bg { background: linear-gradient(135deg, #fff5f8 0%, #ffe0e8 50%, #ffc9dc 100%); }
+    .page-5-bg { background: linear-gradient(135deg, #fce4ec 0%, #f3e5f5 50%, #ede7f6 100%); }
+    .page-6-bg { background: linear-gradient(135deg, #ffebee 0%, #fff3e0 50%, #ffe0b2 100%); }
+    .page-7-bg { background: linear-gradient(135deg, #1a0033 0%, #330066 50%, #1a0033 100%); }
+
+    .reason-card {
+      transition: all 0.3s ease;
+    }
+
+    .reason-card:hover {
+      transform: translateY(-8px);
+      box-shadow: 0 12px 24px rgba(233, 30, 99, 0.2);
+    }
+
+    .polaroid {
+      background: white;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+      transform: rotate(-3deg);
+      transition: all 0.3s ease;
+    }
+
+    .polaroid:hover {
+      transform: rotate(0deg) scale(1.05);
+      box-shadow: 0 15px 40px rgba(0, 0, 0, 0.4);
+    }
+
+    .constellation-star {
+      animation: constellation 3s ease-in-out infinite;
+    }
+  </style>
+  <style>body { box-sizing: border-box; }</style>
+  <script src="/_sdk/data_sdk.js" type="text/javascript"></script>
+ </head>
+ <body class="h-full">
+  <div id="app-wrapper" class="w-full h-full relative overflow-hidden"><!-- PAGE 1: HERO -->
+   <div class="page active page-1-bg page-container">
+    <main class="relative z-10 flex flex-col items-center justify-center flex-1 px-4 py-12"><!-- Floating Hearts -->
+     <div class="absolute inset-0 overflow-hidden pointer-events-none">
+      <svg class="absolute heart-float" style="top: 10%; left: 5%; animation-delay: 0s;" width="30" height="30" viewbox="0 0 24 24" fill="currentColor"><path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z" />
+      </svg>
+      <svg class="absolute heart-float" style="top: 20%; right: 10%; animation-delay: 1s;" width="20" height="20" viewbox="0 0 24 24" fill="currentColor"><path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z" />
+      </svg>
+      <svg class="absolute heart-float" style="top: 60%; left: 8%; animation-delay: 2s;" width="25" height="25" viewbox="0 0 24 24" fill="currentColor"><path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z" />
+      </svg>
+      <svg class="absolute heart-float" style="top: 75%; right: 15%; animation-delay: 0.5s;" width="35" height="35" viewbox="0 0 24 24" fill="currentColor"><path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z" />
+      </svg>
+     </div>
+     <div class="relative z-10 text-center"><!-- Main Heart -->
+      <div class="mb-8 heart-glow">
+       <svg class="mx-auto" width="100" height="100" viewbox="0 0 24 24" fill="currentColor"><path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z" />
+       </svg>
+      </div><!-- Hero Text -->
+      <h1 id="couple-names" class="text-6xl md:text-8xl font-semibold mb-4 text-shadow-romantic fade-in-up" style="font-family: 'Cormorant Garamond', serif; color: var(--text-dark);">Emma &amp; James</h1>
+      <p id="hero-tagline" class="text-2xl md:text-3xl italic fade-in-up delay-200" style="font-family: 'Cormorant Garamond', serif; color: var(--text-dark);">Our Love Story</p><!-- Couple Illustration -->
+      <div class="mt-12 mb-8 fade-in-up delay-400">
+       <svg class="mx-auto" width="200" height="200" viewbox="0 0 200 200" fill="none"><!-- Left figure --> <circle cx="60" cy="40" r="15" fill="var(--accent-primary)" /> <path d="M60 55 Q50 70 55 90" stroke="var(--accent-primary)" stroke-width="3" fill="none" stroke-linecap="round" /> <path d="M60 60 L45 80" stroke="var(--accent-primary)" stroke-width="3" fill="none" stroke-linecap="round" /> <path d="M60 60 L75 80" stroke="var(--accent-primary)" stroke-width="3" fill="none" stroke-linecap="round" /> <path d="M55 90 L50 120" stroke="var(--accent-primary)" stroke-width="3" fill="none" stroke-linecap="round" /> <path d="M55 90 L60 120" stroke="var(--accent-primary)" stroke-width="3" fill="none" stroke-linecap="round" /> <!-- Right figure --> <circle cx="140" cy="40" r="15" fill="var(--accent-secondary)" /> <path d="M140 55 Q150 70 145 90" stroke="var(--accent-secondary)" stroke-width="3" fill="none" stroke-linecap="round" /> <path d="M140 60 L155 80" stroke="var(--accent-secondary)" stroke-width="3" fill="none" stroke-linecap="round" /> <path d="M140 60 L125 80" stroke="var(--accent-secondary)" stroke-width="3" fill="none" stroke-linecap="round" /> <path d="M145 90 L150 120" stroke="var(--accent-secondary)" stroke-width="3" fill="none" stroke-linecap="round" /> <path d="M145 90 L140 120" stroke="var(--accent-secondary)" stroke-width="3" fill="none" stroke-linecap="round" /> <!-- Heart connecting them --> <path d="M100 75 L94 68 Q90 64 85 64 Q78 64 78 71 Q78 78 100 95 Q122 78 122 71 Q122 64 115 64 Q110 64 106 68 Z" fill="var(--accent-primary)" opacity="0.8" />
+       </svg>
+      </div><!-- Scroll Indicator -->
+      <div class="mt-12 fade-in-up delay-600">
+       <svg class="mx-auto heart-float" width="24" height="24" viewbox="0 0 24 24" fill="currentColor" style="animation-delay: 0.5s;"><path d="M7.41 8.59L12 13.17l4.59-4.58L18 10l-6 6-6-6 1.41-1.41z" />
+       </svg>
+      </div>
+     </div>
+    </main>
+   </div><!-- PAGE 2: LOVE STORY TIMELINE -->
+   <div class="page page-2-bg page-container">
+    <main class="relative z-10 flex flex-col px-4 py-16 max-w-4xl mx-auto w-full">
+     <h1 id="story-title" class="text-5xl md:text-6xl font-semibold text-center mb-4 fade-in-up" style="font-family: 'Cormorant Garamond', serif; color: var(--text-dark);">Our Love Story</h1>
+     <h2 id="timeline-heading" class="text-2xl text-center mb-12 fade-in-up delay-200" style="font-family: 'Cormorant Garamond', serif; color: var(--accent-primary); opacity: 0.8;">How We Met</h2><!-- Timeline -->
+     <div class="relative"><!-- Timeline line -->
+      <div class="absolute left-1/2 transform -translate-x-1/2 w-1 h-full" style="background: linear-gradient(180deg, var(--accent-primary), var(--accent-secondary));"></div><!-- Timeline items -->
+      <div class="space-y-12"><!-- Item 1 -->
+       <div class="slide-in-left">
+        <div class="glass-card rounded-2xl p-8 ml-0 mr-auto w-full md:w-1/2 md:mr-auto md:ml-0">
+         <div class="flex items-center gap-3 mb-3">
+          <svg width="20" height="20" viewbox="0 0 24 24" fill="currentColor" style="color: var(--accent-primary);"><path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z" />
+          </svg>
+          <p class="font-semibold" style="color: var(--accent-primary);">2018</p>
+         </div>
+         <h3 class="text-xl font-semibold mb-2" style="font-family: 'Cormorant Garamond', serif; color: var(--text-dark);">First Meeting</h3>
+         <p style="color: var(--text-dark); opacity: 0.8;">We met on a summer evening and the spark was instant. You had the most beautiful smile...</p>
+        </div>
+       </div><!-- Item 2 -->
+       <div class="slide-in-right md:ml-auto md:w-1/2">
+        <div class="glass-card rounded-2xl p-8">
+         <div class="flex items-center gap-3 mb-3">
+          <svg width="20" height="20" viewbox="0 0 24 24" fill="currentColor" style="color: var(--accent-primary);"><path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z" />
+          </svg>
+          <p class="font-semibold" style="color: var(--accent-primary);">2019</p>
+         </div>
+         <h3 class="text-xl font-semibold mb-2" style="font-family: 'Cormorant Garamond', serif; color: var(--text-dark);">First Kiss</h3>
+         <p style="color: var(--text-dark); opacity: 0.8;">Under the stars on a quiet rooftop, time stopped. Nothing else mattered but us in that moment...</p>
+        </div>
+       </div><!-- Item 3 -->
+       <div class="slide-in-left">
+        <div class="glass-card rounded-2xl p-8 w-full md:w-1/2">
+         <div class="flex items-center gap-3 mb-3">
+          <svg width="20" height="20" viewbox="0 0 24 24" fill="currentColor" style="color: var(--accent-primary);"><path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z" />
+          </svg>
+          <p class="font-semibold" style="color: var(--accent-primary);">2020</p>
+         </div>
+         <h3 class="text-xl font-semibold mb-2" style="font-family: 'Cormorant Garamond', serif; color: var(--text-dark);">Moving Together</h3>
+         <p style="color: var(--text-dark); opacity: 0.8;">We took a leap and built our home together. Every moment felt like a new adventure with you...</p>
+        </div>
+       </div>
+      </div>
+     </div>
+    </main>
+   </div><!-- PAGE 3: GALLERY / MEMORIES -->
+   <div class="page page-3-bg page-container">
+    <main class="relative z-10 flex flex-col px-4 py-16 max-w-5xl mx-auto w-full">
+     <h1 id="gallery-title" class="text-5xl md:text-6xl font-semibold text-center mb-12 fade-in-up" style="font-family: 'Cormorant Garamond', serif; color: var(--text-dark);">Our Memories</h1><!-- Gallery Grid -->
+     <div class="grid grid-cols-2 md:grid-cols-3 gap-6 md:gap-8">
+      <div class="polaroid fade-in-up delay-100" style="padding: 12px;">
+       <div class="bg-gradient-to-br from-pink-300 to-rose-300 aspect-square rounded flex items-center justify-center">
+        <svg width="60" height="60" viewbox="0 0 24 24" fill="currentColor" opacity="0.6"><path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z" />
+        </svg>
+       </div>
+       <p class="text-center text-sm mt-3 font-semibold" style="color: var(--text-dark);">Summer 2018</p>
+      </div>
+      <div class="polaroid fade-in-up delay-200" style="padding: 12px;">
+       <div class="bg-gradient-to-br from-rose-300 to-pink-300 aspect-square rounded flex items-center justify-center">
+        <svg width="60" height="60" viewbox="0 0 24 24" fill="currentColor" opacity="0.6"><path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z" />
+        </svg>
+       </div>
+       <p class="text-center text-sm mt-3 font-semibold" style="color: var(--text-dark);">Autumn 2018</p>
+      </div>
+      <div class="polaroid fade-in-up delay-300" style="padding: 12px;">
+       <div class="bg-gradient-to-br from-pink-300 to-red-300 aspect-square rounded flex items-center justify-center">
+        <svg width="60" height="60" viewbox="0 0 24 24" fill="currentColor" opacity="0.6"><path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z" />
+        </svg>
+       </div>
+       <p class="text-center text-sm mt-3 font-semibold" style="color: var(--text-dark);">Winter 2018</p>
+      </div>
+      <div class="polaroid fade-in-up delay-400" style="padding: 12px;">
+       <div class="bg-gradient-to-br from-red-300 to-pink-300 aspect-square rounded flex items-center justify-center">
+        <svg width="60" height="60" viewbox="0 0 24 24" fill="currentColor" opacity="0.6"><path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z" />
+        </svg>
+       </div>
+       <p class="text-center text-sm mt-3 font-semibold" style="color: var(--text-dark);">Spring 2019</p>
+      </div>
+      <div class="polaroid fade-in-up delay-500" style="padding: 12px;">
+       <div class="bg-gradient-to-br from-pink-300 to-rose-300 aspect-square rounded flex items-center justify-center">
+        <svg width="60" height="60" viewbox="0 0 24 24" fill="currentColor" opacity="0.6"><path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z" />
+        </svg>
+       </div>
+       <p class="text-center text-sm mt-3 font-semibold" style="color: var(--text-dark);">Summer 2019</p>
+      </div>
+      <div class="polaroid fade-in-up delay-600" style="padding: 12px;">
+       <div class="bg-gradient-to-br from-rose-300 to-red-300 aspect-square rounded flex items-center justify-center">
+        <svg width="60" height="60" viewbox="0 0 24 24" fill="currentColor" opacity="0.6"><path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z" />
+        </svg>
+       </div>
+       <p class="text-center text-sm mt-3 font-semibold" style="color: var(--text-dark);">Together</p>
+      </div>
+     </div>
+    </main>
+   </div><!-- PAGE 4: REASONS I LOVE YOU -->
+   <div class="page page-4-bg page-container">
+    <main class="relative z-10 flex flex-col px-4 py-16 max-w-4xl mx-auto w-full">
+     <h1 id="reasons-title" class="text-5xl md:text-6xl font-semibold text-center mb-12 fade-in-up" style="font-family: 'Cormorant Garamond', serif; color: var(--text-dark);">Reasons I Love You</h1><!-- Reasons Grid -->
+     <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+      <div class="reason-card glass-card rounded-2xl p-8 fade-in-up delay-100">
+       <div class="flex items-center gap-3 mb-4">
+        <svg width="24" height="24" viewbox="0 0 24 24" fill="currentColor" style="color: var(--accent-primary);"><path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z" />
+        </svg>
+        <h3 class="text-lg font-semibold" style="font-family: 'Pacifico', cursive; color: var(--text-dark);">Your Smile</h3>
+       </div>
+       <p style="color: var(--text-dark); opacity: 0.8;">It lights up my entire world and makes every bad day better.</p>
+      </div>
+      <div class="reason-card glass-card rounded-2xl p-8 fade-in-up delay-200">
+       <div class="flex items-center gap-3 mb-4">
+        <svg width="24" height="24" viewbox="0 0 24 24" fill="currentColor" style="color: var(--accent-primary);"><path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z" />
+        </svg>
+        <h3 class="text-lg font-semibold" style="font-family: 'Pacifico', cursive; color: var(--text-dark);">Your Kindness</h3>
+       </div>
+       <p style="color: var(--text-dark); opacity: 0.8;">The way you care for others shows the beauty of your soul.</p>
+      </div>
+      <div class="reason-card glass-card rounded-2xl p-8 fade-in-up delay-300">
+       <div class="flex items-center gap-3 mb-4">
+        <svg width="24" height="24" viewbox="0 0 24 24" fill="currentColor" style="color: var(--accent-primary);"><path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z" />
+        </svg>
+        <h3 class="text-lg font-semibold" style="font-family: 'Pacifico', cursive; color: var(--text-dark);">Your Laugh</h3>
+       </div>
+       <p style="color: var(--text-dark); opacity: 0.8;">That genuine, unguarded laugh is my favorite sound.</p>
+      </div>
+      <div class="reason-card glass-card rounded-2xl p-8 fade-in-up delay-400">
+       <div class="flex items-center gap-3 mb-4">
+        <svg width="24" height="24" viewbox="0 0 24 24" fill="currentColor" style="color: var(--accent-primary);"><path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z" />
+        </svg>
+        <h3 class="text-lg font-semibold" style="font-family: 'Pacifico', cursive; color: var(--text-dark);">Your Dreams</h3>
+       </div>
+       <p style="color: var(--text-dark); opacity: 0.8;">I love how passionate you are about everything you pursue.</p>
+      </div>
+      <div class="reason-card glass-card rounded-2xl p-8 fade-in-up delay-500">
+       <div class="flex items-center gap-3 mb-4">
+        <svg width="24" height="24" viewbox="0 0 24 24" fill="currentColor" style="color: var(--accent-primary);"><path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z" />
+        </svg>
+        <h3 class="text-lg font-semibold" style="font-family: 'Pacifico', cursive; color: var(--text-dark);">Your Heart</h3>
+       </div>
+       <p style="color: var(--text-dark); opacity: 0.8;">You make me believe in the best version of myself.</p>
+      </div>
+      <div class="reason-card glass-card rounded-2xl p-8 fade-in-up delay-600">
+       <div class="flex items-center gap-3 mb-4">
+        <svg width="24" height="24" viewbox="0 0 24 24" fill="currentColor" style="color: var(--accent-primary);"><path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z" />
+        </svg>
+        <h3 class="text-lg font-semibold" style="font-family: 'Pacifico', cursive; color: var(--text-dark);">Forever</h3>
+       </div>
+       <p style="color: var(--text-dark); opacity: 0.8;">Most of all, I love knowing you're my forever.</p>
+      </div>
+     </div>
+    </main>
+   </div><!-- PAGE 5: LOVE QUOTES -->
+   <div class="page page-5-bg page-container">
+    <main class="relative z-10 flex flex-col items-center justify-center px-4 py-20"><!-- Floating hearts and sparkles -->
+     <div class="absolute inset-0 overflow-hidden pointer-events-none">
+      <svg class="absolute heart-float sparkle" style="top: 10%; left: 15%; animation-delay: 0s;" width="20" height="20" viewbox="0 0 24 24" fill="currentColor"><path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z" />
+      </svg>
+      <svg class="absolute sparkle" style="top: 30%; right: 10%; animation-delay: 0.5s;" width="16" height="16" viewbox="0 0 24 24" fill="currentColor"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z" />
+      </svg>
+      <svg class="absolute heart-float" style="top: 70%; left: 10%; animation-delay: 1.5s;" width="18" height="18" viewbox="0 0 24 24" fill="currentColor"><path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z" />
+      </svg>
+      <svg class="absolute sparkle" style="top: 80%; right: 15%; animation-delay: 1s;" width="14" height="14" viewbox="0 0 24 24" fill="currentColor"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z" />
+      </svg>
+     </div>
+     <div class="relative z-10 max-w-2xl space-y-16"><!-- Quote 1 -->
+      <div class="glass-card rounded-2xl p-10 text-center fade-in-up delay-200">
+       <svg class="mx-auto mb-6" width="32" height="32" viewbox="0 0 24 24" fill="currentColor" style="color: var(--accent-primary);"><path d="M3 21c3 0 7-1 7-8V5c0-1.25-4.5-5-7-5S3 3.75 3 5v8c0 1 0 7-1 8s-4 2-6 2s-1.97-6-2-7.5S2.75 5.5 3 5" />
+       </svg>
+       <p id="quote-text" class="text-2xl italic mb-4" style="font-family: 'Cormorant Garamond', serif; color: var(--text-dark);">Every moment with you is a treasure I never want to lose.</p>
+       <p class="text-sm" style="color: var(--accent-primary);">— You &amp; Me</p>
+      </div><!-- Quote 2 -->
+      <div class="glass-card rounded-2xl p-10 text-center fade-in-up delay-400">
+       <svg class="mx-auto mb-6" width="32" height="32" viewbox="0 0 24 24" fill="currentColor" style="color: var(--accent-primary);"><path d="M3 21c3 0 7-1 7-8V5c0-1.25-4.5-5-7-5S3 3.75 3 5v8c0 1 0 7-1 8s-4 2-6 2s-1.97-6-2-7.5S2.75 5.5 3 5" />
+       </svg>
+       <p class="text-2xl italic mb-4" style="font-family: 'Cormorant Garamond', serif; color: var(--text-dark);">You are my today and all of my tomorrows.</p>
+       <p class="text-sm" style="color: var(--accent-primary);">— Forever Yours</p>
+      </div><!-- Quote 3 -->
+      <div class="glass-card rounded-2xl p-10 text-center fade-in-up delay-600">
+       <svg class="mx-auto mb-6" width="32" height="32" viewbox="0 0 24 24" fill="currentColor" style="color: var(--accent-primary);"><path d="M3 21c3 0 7-1 7-8V5c0-1.25-4.5-5-7-5S3 3.75 3 5v8c0 1 0 7-1 8s-4 2-6 2s-1.97-6-2-7.5S2.75 5.5 3 5" />
+       </svg>
+       <p class="text-2xl italic mb-4" style="font-family: 'Cormorant Garamond', serif; color: var(--text-dark);">In you I found my home, my love, my everything.</p>
+       <p class="text-sm" style="color: var(--accent-primary);">— Infinitely Yours</p>
+      </div>
+     </div>
+    </main>
+   </div><!-- PAGE 6: PROPOSAL MESSAGE -->
+   <div class="page page-6-bg page-container">
+    <main class="relative z-10 flex flex-col items-center justify-center min-h-full px-4 py-16"><!-- Candle glow -->
+     <div class="absolute inset-0 opacity-30 pointer-events-none">
+      <div class="absolute top-1/4 left-1/4 w-64 h-64 bg-orange-300 rounded-full blur-3xl"></div>
+      <div class="absolute bottom-1/4 right-1/4 w-64 h-64 bg-yellow-300 rounded-full blur-3xl"></div>
+     </div>
+     <div class="relative z-10 max-w-2xl text-center"><!-- Rose decoration top -->
+      <div class="mb-8 fade-in-up">
+       <svg class="mx-auto" width="40" height="40" viewbox="0 0 24 24" fill="currentColor" style="color: var(--accent-primary);"><path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z" />
+       </svg>
+      </div><!-- Main message -->
+      <div class="glass-card rounded-3xl p-12 backdrop-blur-xl fade-in-up delay-200">
+       <h1 class="text-5xl md:text-6xl font-semibold mb-8" style="font-family: 'Cormorant Garamond', serif; color: var(--accent-primary);">My Dearest</h1>
+       <p id="proposal-message" class="text-xl md:text-2xl leading-relaxed mb-8" style="font-family: 'Cormorant Garamond', serif; color: var(--text-dark);">From the moment I met you, I knew my life would never be the same. You've filled my days with laughter, my heart with love, and my soul with purpose. Every moment with you feels like a beautiful dream come true.</p>
+       <p class="text-lg italic mb-8" style="color: var(--accent-primary); opacity: 0.9;">You mean everything to me...</p><!-- Decorative line -->
+       <div class="flex items-center justify-center gap-4 mb-8">
+        <div class="h-px w-8" style="background: var(--accent-secondary);"></div>
+        <svg width="20" height="20" viewbox="0 0 24 24" fill="currentColor" style="color: var(--accent-secondary);"><path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z" />
+        </svg>
+        <div class="h-px w-8" style="background: var(--accent-secondary);"></div>
+       </div>
+       <p class="text-lg font-semibold" style="color: var(--text-dark);">With all my love,<br><span style="font-family: 'Pacifico', cursive; font-size: 1.5rem;">Forever Yours</span></p>
+      </div><!-- Rose decoration bottom -->
+      <div class="mt-8 fade-in-up delay-400">
+       <svg class="mx-auto" width="40" height="40" viewbox="0 0 24 24" fill="currentColor" style="color: var(--accent-secondary);"><path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z" />
+       </svg>
+      </div>
+     </div>
+    </main>
+   </div><!-- PAGE 7: FOREVER FOOTER -->
+   <div class="page page-7-bg page-container">
+    <main class="relative z-10 flex flex-col items-center justify-center min-h-full px-4"><!-- Constellation stars -->
+     <div class="absolute inset-0 overflow-hidden pointer-events-none">
+      <svg class="w-full h-full" style="opacity: 0.3;" viewbox="0 0 400 400"><circle class="constellation-star" cx="50" cy="50" r="1.5" fill="white" style="animation-delay: 0s;" /> <circle class="constellation-star" cx="100" cy="80" r="1.5" fill="white" style="animation-delay: 0.5s;" /> <circle class="constellation-star" cx="150" cy="60" r="1.5" fill="white" style="animation-delay: 1s;" /> <circle class="constellation-star" cx="300" cy="100" r="1.5" fill="white" style="animation-delay: 1.5s;" /> <circle class="constellation-star" cx="350" cy="150" r="1.5" fill="white" style="animation-delay: 0.8s;" /> <circle class="constellation-star" cx="80" cy="300" r="1.5" fill="white" style="animation-delay: 1.2s;" /> <circle class="constellation-star" cx="200" cy="350" r="1.5" fill="white" style="animation-delay: 0.3s;" /> <circle class="constellation-star" cx="320" cy="300" r="1.5" fill="white" style="animation-delay: 1.8s;" />
+      </svg>
+     </div>
+     <div class="relative z-10 text-center"><!-- Couple Silhouette -->
+      <div class="mb-12 fade-in-up">
+       <svg class="mx-auto" width="150" height="150" viewbox="0 0 200 200" fill="none"><!-- Left figure --> <circle cx="60" cy="40" r="18" fill="rgba(255, 192, 203, 0.6)" /> <path d="M60 58 Q50 75 55 95 Q52 120 50 145" stroke="rgba(255, 192, 203, 0.6)" stroke-width="4" fill="none" stroke-linecap="round" /> <path d="M60 65 L40 85" stroke="rgba(255, 192, 203, 0.6)" stroke-width="3" fill="none" stroke-linecap="round" /> <path d="M60 65 L80 85" stroke="rgba(255, 192, 203, 0.6)" stroke-width="3" fill="none" stroke-linecap="round" /> <!-- Right figure --> <circle cx="140" cy="40" r="18" fill="rgba(255, 182, 193, 0.6)" /> <path d="M140 58 Q150 75 145 95 Q148 120 150 145" stroke="rgba(255, 182, 193, 0.6)" stroke-width="4" fill="none" stroke-linecap="round" /> <path d="M140 65 L160 85" stroke="rgba(255, 182, 193, 0.6)" stroke-width="3" fill="none" stroke-linecap="round" /> <path d="M140 65 L120 85" stroke="rgba(255, 182, 193, 0.6)" stroke-width="3" fill="none" stroke-linecap="round" />
+       </svg>
+      </div><!-- Forever Text -->
+      <h1 id="forever-text" class="text-6xl md:text-7xl font-semibold mb-6 fade-in-up delay-200" style="font-family: 'Cormorant Garamond', serif; color: #ffc0cb;">Forever &amp; Always</h1>
+      <p class="text-xl mb-8 fade-in-up delay-400" style="color: rgba(255, 255, 255, 0.9);">Our love story continues...</p><!-- Floating hearts -->
+      <div class="flex justify-center gap-8 mb-12 fade-in-up delay-600">
+       <svg class="heart-float heart-glow" width="30" height="30" viewbox="0 0 24 24" fill="currentColor" style="color: #ff69b4; animation-delay: 0s;"><path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z" />
+       </svg>
+       <svg class="heart-float heart-glow" width="35" height="35" viewbox="0 0 24 24" fill="currentColor" style="color: #ffc0cb; animation-delay: 0.5s;"><path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z" />
+       </svg>
+       <svg class="heart-float heart-glow" width="30" height="30" viewbox="0 0 24 24" fill="currentColor" style="color: #ff69b4; animation-delay: 1s;"><path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z" />
+       </svg>
+      </div><!-- Bottom message -->
+      <p class="text-sm fade-in-up delay-800" style="color: rgba(255, 255, 255, 0.7);">Made with 💕 for us</p>
+     </div>
+    </main>
+   </div><!-- Navigation -->
+   <div class="fixed bottom-8 left-1/2 transform -translate-x-1/2 z-50 flex items-center gap-4"><button id="prev-btn" class="nav-button p-2 rounded-full bg-white shadow-lg" style="background: rgba(255, 255, 255, 0.9);">
+     <svg width="24" height="24" viewbox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="15 18 9 12 15 6"></polyline>
+     </svg></button>
+    <div id="pagination" class="flex gap-2">
+     <div class="pagination-dot active w-3 h-3 rounded-full" style="background: rgba(255, 255, 255, 0.5);"></div>
+     <div class="pagination-dot w-3 h-3 rounded-full" style="background: rgba(255, 255, 255, 0.5);"></div>
+     <div class="pagination-dot w-3 h-3 rounded-full" style="background: rgba(255, 255, 255, 0.5);"></div>
+     <div class="pagination-dot w-3 h-3 rounded-full" style="background: rgba(255, 255, 255, 0.5);"></div>
+     <div class="pagination-dot w-3 h-3 rounded-full" style="background: rgba(255, 255, 255, 0.5);"></div>
+     <div class="pagination-dot w-3 h-3 rounded-full" style="background: rgba(255, 255, 255, 0.5);"></div>
+     <div class="pagination-dot w-3 h-3 rounded-full" style="background: rgba(255, 255, 255, 0.5);"></div>
+    </div><button id="next-btn" class="nav-button p-2 rounded-full bg-white shadow-lg" style="background: rgba(255, 255, 255, 0.9);">
+     <svg width="24" height="24" viewbox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="9 18 15 12 9 6"></polyline>
+     </svg></button>
+   </div>
+  </div>
+  <script>
+    const defaultConfig = {
+      couple_names: "Emma & James",
+      hero_tagline: "Our Love Story",
+      story_title: "Our Love Story",
+      timeline_heading: "How We Met",
+      gallery_title: "Our Memories",
+      reasons_title: "Reasons I Love You",
+      quote_text: "Every moment with you is a treasure I never want to lose.",
+      proposal_message: "From the moment I met you, I knew my life would never be the same. You've filled my days with laughter, my heart with love, and my soul with purpose. Every moment with you feels like a beautiful dream come true.\n\nYou mean everything to me...",
+      forever_text: "Forever & Always"
+    };
+
+    let currentPage = 0;
+    const pages = document.querySelectorAll('.page');
+    const totalPages = pages.length;
+
+    function goToPage(index) {
+      if (index < 0 || index >= totalPages) return;
+
+      pages.forEach(page => page.classList.remove('active'));
+      pages[index].classList.add('active');
+
+      document.querySelectorAll('.pagination-dot').forEach((dot, i) => {
+        dot.classList.toggle('active', i === index);
+      });
+
+      currentPage = index;
+    }
+
+    function nextPage() {
+      goToPage((currentPage + 1) % totalPages);
+    }
+
+    function prevPage() {
+      goToPage((currentPage - 1 + totalPages) % totalPages);
+    }
+
+    // Event listeners
+    document.getElementById('next-btn').addEventListener('click', nextPage);
+    document.getElementById('prev-btn').addEventListener('click', prevPage);
+
+    document.querySelectorAll('.pagination-dot').forEach((dot, index) => {
+      dot.addEventListener('click', () => goToPage(index));
+    });
+
+    // Keyboard navigation
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'ArrowRight') nextPage();
+      if (e.key === 'ArrowLeft') prevPage();
+    });
+
+    // SDK Integration
+    const defaultConfigFull = {
+      ...defaultConfig,
+      background_color: "#fce4ec",
+      surface_color: "#f8bbd9",
+      text_color: "#880e4f",
+      primary_action: "#e91e63",
+      secondary_action: "#c2185b",
+      font_family: "Cormorant Garamond",
+      font_size: 16
+    };
+
+    async function onConfigChange(config) {
+      document.getElementById('couple-names').textContent = config.couple_names || defaultConfig.couple_names;
+      document.getElementById('hero-tagline').textContent = config.hero_tagline || defaultConfig.hero_tagline;
+      document.getElementById('story-title').textContent = config.story_title || defaultConfig.story_title;
+      document.getElementById('timeline-heading').textContent = config.timeline_heading || defaultConfig.timeline_heading;
+      document.getElementById('gallery-title').textContent = config.gallery_title || defaultConfig.gallery_title;
+      document.getElementById('reasons-title').textContent = config.reasons_title || defaultConfig.reasons_title;
+      document.getElementById('quote-text').textContent = config.quote_text || defaultConfig.quote_text;
+      document.getElementById('proposal-message').textContent = config.proposal_message || defaultConfig.proposal_message;
+      document.getElementById('forever-text').textContent = config.forever_text || defaultConfig.forever_text;
+    }
+
+    function mapToCapabilities(config) {
+      return {
+        recolorables: [
+          {
+            get: () => config.background_color || defaultConfigFull.background_color,
+            set: (value) => {
+              config.background_color = value;
+              window.elementSdk.setConfig({ background_color: value });
+            }
+          },
+          {
+            get: () => config.surface_color || defaultConfigFull.surface_color,
+            set: (value) => {
+              config.surface_color = value;
+              window.elementSdk.setConfig({ surface_color: value });
+            }
+          },
+          {
+            get: () => config.text_color || defaultConfigFull.text_color,
+            set: (value) => {
+              config.text_color = value;
+              window.elementSdk.setConfig({ text_color: value });
+            }
+          },
+          {
+            get: () => config.primary_action || defaultConfigFull.primary_action,
+            set: (value) => {
+              config.primary_action = value;
+              window.elementSdk.setConfig({ primary_action: value });
+            }
+          },
+          {
+            get: () => config.secondary_action || defaultConfigFull.secondary_action,
+            set: (value) => {
+              config.secondary_action = value;
+              window.elementSdk.setConfig({ secondary_action: value });
+            }
+          }
+        ],
+        borderables: [],
+        fontEditable: {
+          get: () => config.font_family || defaultConfigFull.font_family,
+          set: (value) => {
+            config.font_family = value;
+            window.elementSdk.setConfig({ font_family: value });
+          }
+        },
+        fontSizeable: {
+          get: () => config.font_size || defaultConfigFull.font_size,
+          set: (value) => {
+            config.font_size = value;
+            window.elementSdk.setConfig({ font_size: value });
+          }
+        }
+      };
+    }
+
+    function mapToEditPanelValues(config) {
+      return new Map([
+        ["couple_names", config.couple_names || defaultConfig.couple_names],
+        ["hero_tagline", config.hero_tagline || defaultConfig.hero_tagline],
+        ["story_title", config.story_title || defaultConfig.story_title],
+        ["timeline_heading", config.timeline_heading || defaultConfig.timeline_heading],
+        ["gallery_title", config.gallery_title || defaultConfig.gallery_title],
+        ["reasons_title", config.reasons_title || defaultConfig.reasons_title],
+        ["quote_text", config.quote_text || defaultConfig.quote_text],
+        ["proposal_message", config.proposal_message || defaultConfig.proposal_message],
+        ["forever_text", config.forever_text || defaultConfig.forever_text]
+      ]);
+    }
+
+    if (window.elementSdk) {
+      window.elementSdk.init({
+        defaultConfig: defaultConfigFull,
+        onConfigChange,
+        mapToCapabilities,
+        mapToEditPanelValues
+      });
+    }
+
+    onConfigChange(defaultConfigFull);
+  </script>
+ <script>(function(){function c(){var b=a.contentDocument||a.contentWindow.document;if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'9cd310cf800cff64',t:'MTc3MDk3MjQ5NS4wMDAwMDA='};var a=document.createElement('script');a.nonce='';a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script></body>
+</html>
